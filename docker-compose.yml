@@ -1,22 +1,33 @@
 version: "3"
-
 services:
-
+  web:
+      image: rrcfesc/dockerfilesmagento2:latest
+      expose:
+         - "9000"
+      ports:
+        - "80:80"
+        - "443:443"
+      volumes:
+          - ./:/var/www/html
+          - ~/.ssh:/home/magento/.ssh
+          - ./apache_vhost:/etc/apache2/sites-available/
+      extra_hosts:
+          - "test.local.com:127.0.0.1"
+      environment:
+          PHP_XDEBUG_ENABLED: 1
+          XDEBUG_CONFIG: remote_host=192.168.1.106
+          PHP_IDE_CONFIG: "serverName=Backend"
+      links:
+          - php7-mysql
+      container_name: php7-web
   php7-mysql:
-    container_name: php7-database
-    image: mysql
-    command: --default-authentication-plugin=mysql_native_password
-    environment:
-      MYSQL_ROOT_PASSWORD: mypassword
-      MYSQL_DATABASE: euromillions
-    ports:
-      - "3306:3306"
-    volumes:
-      - "./docker-entrypoint-initdb.d/draw.sql:/docker-entrypoint-initdb.d/draw.sql"
-    restart: always
-
-    # Redis perhaps?
-
-networks:
-  local:
-    driver: bridge
+      container_name: php7-database
+      image: mysql:5.7
+      command: --default-authentication-plugin=mysql_native_password
+      environment:
+          MYSQL_ROOT_PASSWORD: mypassword
+          MYSQL_DATABASE: euromillions
+      ports:
+          - "3306:3306"
+      volumes:
+          - "./docker-entrypoint-initdb.d/draw.sql:/docker-entrypoint-initdb.d/draw.sql"

@@ -1,0 +1,29 @@
+{
+  "name": "panamediaslu/test",
+  "description": "PanamediaSLU Test" ,
+  "license": "MIT",
+  "keywords": ["test","logger"],
+  "authors": [
+    {
+      "name": "Ricardo Ruiz",
+      "email": "ricardojesus.ruizcruz@gmail.com"
+    }
+  ],
+  "require":{
+    "php"                       : ">=7.0",
+    "guzzlehttp/guzzle": "~6.0"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "6.*"
+  },
+  "autoload": {
+    "psr-4": {
+      "PanamediaSLU\\": "src"
+    }
+  },
+  "autoload-dev" : {
+    "psr-4" : {
+      "PanamediaSLU\\" : "tests/"
+    }
+  }
+}

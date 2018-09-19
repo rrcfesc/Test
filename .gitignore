@@ -2,3 +2,5 @@ vendor
 .idea
 .vagrant
 db
+composer.lock
+local.php
